@@ -1,0 +1,19 @@
+*scratchy.txt*  A Git wrapper so awesome, it should be illegal
+
+Author:  Vito C
+License: Same terms as NeoVim itself (see |license|)
+
+INTRODUCTION                                    *scratchy*
+
+Scratchy right now focuses on jq. There are three windows used in scratcy. The
+output, input and the filter window. As you write a filter it autoupdates the
+output window with the new json.
+
+COMMANDS                                        *scratchy-commands*
+
+These commands are local to the buffers/tab in which they work (generally, buffers
+that are part of Git repositories).
+
+                                                *scratchy-:ScratchyRun*
+:ScratchyRun            Run an arbitrary git command. Similar to :!git [args]
+                        but chdir to the repository tree first.

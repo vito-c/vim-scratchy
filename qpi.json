@@ -1,0 +1,622 @@
+{
+  "docker": {
+    "backends": {
+      "backend-authn-api-maestro": {
+        "servers": {
+          "server-authn-api": {
+            "url": "http://172.18.0.15:9000",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-authn-db-maestro": {
+        "servers": {
+          "server-authn-db": {
+            "url": "http://172.18.0.6:5432",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-doppelganger-app-maestro": {
+        "servers": {
+          "server-doppelganger-app": {
+            "url": "http://172.18.0.3:9000",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-engage-admin-maestro": {
+        "servers": {
+          "server-engage-admin": {
+            "url": "http://172.18.0.17:9000",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-engage-api-maestro": {
+        "servers": {
+          "server-engage-api": {
+            "url": "http://172.18.0.16:8080",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-engage-settings-maestro": {
+        "servers": {
+          "server-engage-settings": {
+            "url": "http://172.18.0.21:9000",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-engage-zenplay-maestro": {
+        "servers": {
+          "server-engage-zenplay": {
+            "url": "http://172.18.0.13:9000",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-health-profile-web-maestro": {
+        "servers": {
+          "server-health-profile-web": {
+            "url": "http://172.18.0.14:9000",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-mpe-web-maestro": {
+        "servers": {
+          "server-mpe-web": {
+            "url": "http://172.18.0.11:9000",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-rabbitmq-maestro": {
+        "servers": {
+          "server-rabbitmq": {
+            "url": "http://172.18.0.5:4369",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-rewards-calvinballweb-maestro": {
+        "servers": {
+          "server-rewards-calvinballweb": {
+            "url": "http://172.18.0.20:9000",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-rewards-edge-maestro": {
+        "servers": {
+          "server-rewards-edge": {
+            "url": "http://172.18.0.9:9000",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-rewards-plinko-maestro": {
+        "servers": {
+          "server-rewards-plinko": {
+            "url": "http://172.18.0.24:9103",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-rewards-web-maestro": {
+        "servers": {
+          "server-rewards-web": {
+            "url": "http://172.18.0.10:9000",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-sortinghat-web-maestro": {
+        "servers": {
+          "server-sortinghat-web": {
+            "url": "http://172.18.0.12:9000",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-survey-edge-maestro": {
+        "servers": {
+          "server-survey-edge": {
+            "url": "http://172.18.0.7:9000",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-survey-web-maestro": {
+        "servers": {
+          "server-survey-web": {
+            "url": "http://172.18.0.8:9000",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-traefik-routing-maestro": {
+        "servers": {
+          "server-traefik-routing": {
+            "url": "http://172.18.0.4:80",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-web-accounts-maestro": {
+        "servers": {
+          "server-web-accounts": {
+            "url": "http://172.18.0.23:8108",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-web-engage-admin-maestro": {
+        "servers": {
+          "server-web-engage-admin": {
+            "url": "http://172.18.0.22:8176",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-web-rewards-maestro": {
+        "servers": {
+          "server-web-rewards": {
+            "url": "http://172.18.0.19:8102",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      },
+      "backend-web-survey-maestro": {
+        "servers": {
+          "server-web-survey": {
+            "url": "http://172.18.0.18:8136",
+            "weight": 0
+          }
+        },
+        "loadBalancer": {
+          "method": "wrr"
+        }
+      }
+    },
+    "frontends": {
+      "frontend-Host-accounts-local-werally-in-1": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-web-accounts-maestro",
+        "routes": {
+          "route-frontend-Host-accounts-local-werally-in-1": {
+            "rule": "Host:accounts.local.werally.in"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-authn-api-maestro-rally-6": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-authn-api-maestro",
+        "routes": {
+          "route-frontend-Host-authn-api-maestro-rally-6": {
+            "rule": "Host:authn.api.maestro.rally"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-authn-db-maestro-rally-18": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-authn-db-maestro",
+        "routes": {
+          "route-frontend-Host-authn-db-maestro-rally-18": {
+            "rule": "Host:authn.db.maestro.rally"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-doppelganger-app-maestro-rally-21": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-doppelganger-app-maestro",
+        "routes": {
+          "route-frontend-Host-doppelganger-app-maestro-rally-21": {
+            "rule": "Host:doppelganger.app.maestro.rally"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-engage-admin-local-werally-in-2": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-web-engage-admin-maestro",
+        "routes": {
+          "route-frontend-Host-engage-admin-local-werally-in-2": {
+            "rule": "Host:engage-admin.local.werally.in"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-engage-admin-maestro-rally-9": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-engage-admin-maestro",
+        "routes": {
+          "route-frontend-Host-engage-admin-maestro-rally-9": {
+            "rule": "Host:engage.admin.maestro.rally"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-engage-api-maestro-rally-8": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-engage-api-maestro",
+        "routes": {
+          "route-frontend-Host-engage-api-maestro-rally-8": {
+            "rule": "Host:engage.api.maestro.rally"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-engage-settings-maestro-rally-3": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-engage-settings-maestro",
+        "routes": {
+          "route-frontend-Host-engage-settings-maestro-rally-3": {
+            "rule": "Host:engage.settings.maestro.rally"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-mpe-web-maestro-rally-13": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-mpe-web-maestro",
+        "routes": {
+          "route-frontend-Host-mpe-web-maestro-rally-13": {
+            "rule": "Host:mpe.web.maestro.rally"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-rabbitmq-maestro-rally-20": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-rabbitmq-maestro",
+        "routes": {
+          "route-frontend-Host-rabbitmq-maestro-rally-20": {
+            "rule": "Host:rabbitmq.maestro.rally"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-rewards-calvinballweb-maestro-rally-4": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-rewards-calvinballweb-maestro",
+        "routes": {
+          "route-frontend-Host-rewards-calvinballweb-maestro-rally-4": {
+            "rule": "Host:rewards.calvinballweb.maestro.rally"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-rewards-local-werally-in-5": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-web-rewards-maestro",
+        "routes": {
+          "route-frontend-Host-rewards-local-werally-in-5": {
+            "rule": "Host:rewards.local.werally.in"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-rewards-plinko-maestro-rally-0": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-rewards-plinko-maestro",
+        "routes": {
+          "route-frontend-Host-rewards-plinko-maestro-rally-0": {
+            "rule": "Host:rewards.plinko.maestro.rally"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-rewards-web-maestro-rally-14": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-rewards-web-maestro",
+        "routes": {
+          "route-frontend-Host-rewards-web-maestro-rally-14": {
+            "rule": "Host:rewards.web.maestro.rally"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-sortinghat-web-maestro-rally-12": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-sortinghat-web-maestro",
+        "routes": {
+          "route-frontend-Host-sortinghat-web-maestro-rally-12": {
+            "rule": "Host:sortinghat.web.maestro.rally"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-survey-local-werally-in-7": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-web-survey-maestro",
+        "routes": {
+          "route-frontend-Host-survey-local-werally-in-7": {
+            "rule": "Host:survey.local.werally.in"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-survey-web-maestro-rally-16": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-survey-web-maestro",
+        "routes": {
+          "route-frontend-Host-survey-web-maestro-rally-16": {
+            "rule": "Host:survey.web.maestro.rally"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-traefik-routing-maestro-rally-19": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-traefik-routing-maestro",
+        "routes": {
+          "route-frontend-Host-traefik-routing-maestro-rally-19": {
+            "rule": "Host:traefik.routing.maestro.rally"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-www-local-werally-in-PathPrefix-healthprofile-10": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-health-profile-web-maestro",
+        "routes": {
+          "route-frontend-Host-www-local-werally-in-PathPrefix-healthprofile-10": {
+            "rule": "Host:www.local.werally.in; PathPrefix:/healthprofile"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {}
+      },
+      "frontend-Host-www-local-werally-in-PathPrefix-play-Method-GET-POST-PUT-DELETE-11": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-engage-zenplay-maestro",
+        "routes": {
+          "route-frontend-Host-www-local-werally-in-PathPrefix-play-Method-GET-POST-PUT-DELETE-11": {
+            "rule": "Host:www.local.werally.in; PathPrefix:/play; Method:GET,POST,PUT,DELETE"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {
+          "customRequestHeaders": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "accept, origin, xsrf-token, x-requested-with, x-rally-auth-token, x-rally-authtoken, x-rally-verification-code, x-rally-locale, x-rally-userId, x-rally-session-token, x-rally-sessiontoken, server-event-uuid, content-type, x-abuse-info",
+            "Access-Control-Allow-Methods": "GET,POST,OPTIONS,DELETE,PUT",
+            "Access-Control-Allow-Origin": "http://www.local.werally.in"
+          },
+          "customResponseHeaders": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "accept, origin, xsrf-token, x-requested-with, x-rally-auth-token, x-rally-authtoken, x-rally-verification-code, x-rally-locale, x-rally-userId, x-rally-session-token, x-rally-sessiontoken, server-event-uuid, content-type, x-abuse-info",
+            "Access-Control-Allow-Methods": "GET,POST,OPTIONS,DELETE,PUT",
+            "Access-Control-Allow-Origin": "http://www.local.werally.in",
+            "Access-Control-Expose-Headers": "Rally-EngageProfileStatus"
+          }
+        }
+      },
+      "frontend-Host-www-local-werally-in-PathPrefix-play-rest-rewards-play-rest-incentives-play-rest-auctions-play-rest-donations-Method-GET-POST-PUT-DELETE-15": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-rewards-edge-maestro",
+        "routes": {
+          "route-frontend-Host-www-local-werally-in-PathPrefix-play-rest-rewards-play-rest-incentives-play-rest-auctions-play-rest-donations-Method-GET-POST-PUT-DELETE-15": {
+            "rule": "Host:www.local.werally.in; PathPrefix:/play/rest/rewards, /play/rest/incentives, /play/rest/auctions, /play/rest/donations; Method:GET,POST,PUT,DELETE"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {
+          "customRequestHeaders": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "accept, origin, xsrf-token, x-requested-with, x-rally-auth-token, x-rally-authtoken, x-rally-verification-code, x-rally-locale, x-rally-userId, x-rally-session-token, x-rally-sessiontoken, server-event-uuid, content-type, x-abuse-info",
+            "Access-Control-Allow-Methods": "GET,POST,OPTIONS,DELETE,PUT",
+            "Access-Control-Allow-Origin": "http://rewards.local.werally.in"
+          },
+          "customResponseHeaders": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "accept, origin, xsrf-token, x-requested-with, x-rally-auth-token, x-rally-authtoken, x-rally-verification-code, x-rally-locale, x-rally-userId, x-rally-session-token, x-rally-sessiontoken, server-event-uuid, content-type, x-abuse-info",
+            "Access-Control-Allow-Methods": "GET,POST,OPTIONS,DELETE,PUT",
+            "Access-Control-Allow-Origin": "http://rewards.local.werally.in",
+            "Access-Control-Expose-Headers": "Rally-EngageProfileStatus"
+          }
+        }
+      },
+      "frontend-Host-www-local-werally-in-PathPrefix-play-rest-survey-play-api-survey-Method-GET-POST-PUT-DELETE-17": {
+        "entryPoints": [
+          "http"
+        ],
+        "backend": "backend-survey-edge-maestro",
+        "routes": {
+          "route-frontend-Host-www-local-werally-in-PathPrefix-play-rest-survey-play-api-survey-Method-GET-POST-PUT-DELETE-17": {
+            "rule": "Host:www.local.werally.in; PathPrefix:/play/rest/survey,/play/api/survey; Method:GET,POST,PUT,DELETE"
+          }
+        },
+        "passHostHeader": true,
+        "priority": 0,
+        "basicAuth": [],
+        "headers": {
+          "customRequestHeaders": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "accept, origin, xsrf-token, x-requested-with, x-rally-auth-token, x-rally-authtoken, x-rally-verification-code, x-rally-locale, x-rally-userId, x-rally-session-token, x-rally-sessiontoken, server-event-uuid, content-type, x-abuse-info",
+            "Access-Control-Allow-Methods": "GET,POST,OPTIONS,DELETE,PUT",
+            "Access-Control-Allow-Origin": "http://survey.local.werally.in"
+          },
+          "customResponseHeaders": {
+            "Access-Control-Allow-Credentials": "true",
+            "Access-Control-Allow-Headers": "accept, origin, xsrf-token, x-requested-with, x-rally-auth-token, x-rally-authtoken, x-rally-verification-code, x-rally-locale, x-rally-userId, x-rally-session-token, x-rally-sessiontoken, server-event-uuid, content-type, x-abuse-info",
+            "Access-Control-Allow-Methods": "GET,POST,OPTIONS,DELETE,PUT",
+            "Access-Control-Allow-Origin": "http://survey.local.werally.in",
+            "Access-Control-Expose-Headers": "Rally-EngageProfileStatus"
+          }
+        }
+      }
+    }
+  }
+}
