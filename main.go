@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"io"
@@ -42,7 +43,17 @@ const (
 	terminal = "terminal" // |terminal-emulator| buffer
 )
 
+const (
+	hide   = "hide"
+	unload = "unload"
+	delete = "delete"
+	wipe   = "wipe"
+)
+
 type BufferOptions struct {
+	Number     bool
+	Buflisted  bool
+	Bufhidden  string
 	Location   string
 	Modifiable bool
 	Modified   bool
@@ -55,6 +66,7 @@ func (v *Svim) NewBufferOpts(options BufferOptions) SBuffer {
 	v.Command(options.Location) // tab, vert, horz, default
 	buff, _ := v.CurrentBuffer()
 	v.SetBufferName(buff, options.Name)
+	v.SetBufferOption(buff, "buftype", options.BufferType)
 	return SBuffer{buff, v, [][]byte{}}
 }
 
@@ -91,115 +103,108 @@ func (v *Svim) NewBuffer(name string) SBuffer {
 	})
 }
 
-func readonly(v *nvim.Nvim, buff nvim.Buffer, readable bool) {
-	v.SetBufferOption(buff, "modifiable", readable)
-	v.SetBufferOption(buff, "modified", readable)
-	v.SetBufferOption(buff, "readonly", readable)
+func (v *Svim) CreateSBuffer(buff nvim.Buffer, err error) SBuffer {
+	log.Println("BUFFER NUMBEr: ", buff)
+	data := [][]byte{}
+	return SBuffer{
+		Buffer: buff,
+		nvim:   v,
+		data:   data,
+	}
 }
 
-var databuff, jqbuff, outbuff nvim.Buffer
+func (b *SBuffer) readonly(isReadOnly bool) {
+	log.Println("REAADONLY ", b.Buffer, " ", isReadOnly)
+	// b.nvim.Nvim.SetBufferOption(b.Buffer, "modifiable", isReadOnly)
+	// b.nvim.Nvim.SetBufferOption(b.Buffer, "modified", isReadOnly)
+	// b.nvim.Nvim.SetBufferOption(b.Buffer, "readonly", isReadOnly)
+	b.nvim.Nvim.SetCurrentBuffer(b.Buffer)
+	if isReadOnly {
+		b.nvim.Nvim.Command("setlocal noma nomod nonu ro nornu")
+	} else {
+		b.nvim.Nvim.Command("setlocal ma mod nu ro nornu")
+	}
+}
+
+var databuff, jqbuff, outbuff SBuffer
+var dataWin, jqWin, outWin nvim.Window
 
 func setup(n *nvim.Nvim, args []string) (string, error) { // Declare first arg as *nvim.Nvim to get current client
 	log.Println("IN SETUP")
-	// var ft string
+	jq.Init()
+	jq.Path = "/usr/local/bin/jq"
 	v := Svim{n}
-	databuff, _ = v.CurrentBuffer()
-	/*** OUTPUT Buffer ***/
-	v.Command("tabnew")
-	outbuff, _ = v.CurrentBuffer()
-	v.SetBufferName(outbuff, "[Output]")
+	databuff = v.CreateSBuffer(n.CurrentBuffer())
+	dataWin, _ = v.CurrentWindow()
+	outbuff = v.NewTabBuffer("[Output]")
 	v.Command("set syntax=json")
-	v.Command("setlocal bt=nofile bh=wipe noma nomod nonu nobl nowrap ro nornu")
+	outWin, _ = v.CurrentWindow()
+	log.Println("outWin ", outWin)
+	// v.Command("setlocal bt=nofile bh=wipe noma nomod nonu nobl nowrap ro nornu")
 
 	/*** Filter Buffer ***/
-	// jqbuff := v.NewBufferOpts(BufferOptions{
-	// 	Location:   VERT,
-	// 	Modifiable: true,
-	// 	Modified:   false,
-	// 	ReadOnly:   false,
-	// 	Name:       "[jq]",
-	// 	BufferType: nofile,
-	// })
-	v.Command("vnew")
-	jqbuff, _ = v.CurrentBuffer()
-	v.SetBufferOption(jqbuff, "buftype", "nofile")
+	jqbuff = v.NewBufferOpts(BufferOptions{
+		Location:   VERT,
+		Modifiable: true,
+		Modified:   false,
+		ReadOnly:   false,
+		Name:       "[jq]",
+		BufferType: nofile,
+	})
 	v.Command("set syntax=jq")
-	v.SetBufferName(jqbuff, "[jq]")
+	jqWin, _ = v.CurrentWindow()
+	log.Println("jqWin ", jqWin)
 
 	// Finish setup
-	v.SetCurrentBuffer(databuff)
+	v.SetCurrentBuffer(databuff.Buffer)
 	v.Command("split")
 	v.Command("wincmd K")
-	cw, _ := v.CurrentWindow()
-	v.SetWindowHeight(cw, 10)
-	v.SetCurrentBuffer(jqbuff)
+	dataWin, _ = v.CurrentWindow()
+	v.SetWindowHeight(dataWin, 10)
+	log.Println("dataWin ", dataWin)
+
+	v.SetCurrentBuffer(jqbuff.Buffer)
 	// v.SetBufferAuCmd("TextChangedI", jqbuff, "ScratchyRun")
 	// v.SetBufferAuCmd("TextChanged", jqbuff, "ScratchyRun")
-	v.SetCurrentLine([]byte(".[]|.url"))
+	v.SetCurrentLine([]byte("map(.url)"))
 	log.Printf("jqbuff %v\n", jqbuff)
 	log.Printf("databuff %v\n", databuff)
-	return scratchyRun(n, args)
-
-	// jq := &JQ{
-	// 			J: `{ "foo": { "bar": { "baz": 123 } } }`,
-	// 			Q: ".",
-	// 		}
-	// 		err := jq.Eval(ctx, ioutil.Discard)
-	// 		if err != nil {
-	// 			t.Errorf("err should be nil: %s", err)
-	// 		}
-	// return "Test: " + ft, nil
+	log.Printf("outbuff %v\n", outbuff)
+	return scratchyRun(v, args)
 }
 
-func scratchyRun(n *nvim.Nvim, args []string) (string, error) { // Declare first arg as *nvim.Nvim to get current client
-	if jqbuff == databuff {
-		return setup(n, args)
-	}
-	v := Svim{n}
-	qb, err := v.BufferLines(jqbuff, 0, -1, true)
-	if err != nil {
-		log.Println("Error in jqbuff")
-		log.Fatal(err)
-	}
-	jb, err := v.BufferLines(databuff, 0, -1, true)
-	if err != nil {
-		log.Println("Error in databuff")
-		log.Fatal(err)
-	}
-	jqbuff.String()
+func (r *SBuffer) getString() string {
+	r.LoadData()
+	var buff []byte
 
-	query := []byte{}
-	json := []byte{}
-	for _, b := range qb {
-		query = append(query, b[:]...)
+	for _, b := range r.data {
+		buff = append(buff, b[:]...)
 	}
-	// qstr := string(query)
-	// log.Println("================")
-	// log.Println(qstr)
-	// log.Println("====================")
+	return string(buff)
+}
 
-	for _, b := range jb {
-		log.Println(string(b[:]))
-		json = append(json, b[:]...)
+func scratchyRun(v Svim, args []string) (string, error) { // Declare first arg as *nvim.Nvim to get current client
+	if jqbuff.Buffer == databuff.Buffer {
+		return setup(v.Nvim, args)
 	}
-	// jstr := string(json)
-	// log.Println("====================")
-	// log.Println(jstr)
-	// log.Println("====================")
+
+	json := databuff.getString()
+	query := jqbuff.getString()
 
 	jqr := &jq.JQ{
 		J: string(json),
 		Q: string(query),
 	}
 
+	v.SetCurrentWindow(dataWin)
+	log.Println("dataWin ", dataWin)
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
-	// if err := jqr.Eval(ctx, ); err == nil {
-	// }
-
-	if err != nil {
-		log.Fatalln(err)
-		// t.Errorf("err should be nil: %s", err)
+	defer cancel()
+	if err := jqr.Eval(ctx, &outbuff); err != nil {
+		fmt.Fprint(&outbuff, err.Error())
+		log.Fatalln(err.Error())
 	}
+
 	return "finished", nil
 }
 
@@ -249,8 +254,26 @@ func (b *SBuffer) Read(p []byte) (n int, err error) {
 }
 
 func (b *SBuffer) Write(p []byte) (n int, err error) {
-	return 0, nil
+	// t, _ := b.nvim.BufferLineCount(b.Buffer)
+	// log.Println("WRITE ------------ ", t)
+	// log.Println(string(p))
+	log.Println("------------ ", len(p))
+	// b.data = append(b.data, p)
+
+	if len(p) == 0 {
+		return 0, nil
+	}
+
+	err = b.nvim.SetBufferLines(
+		b.Buffer,
+		0, -1, true, bytes.Split(p, []byte{'\n'}))
+	log.Println("------------")
+	return len(p), err
 }
+
+// func (b *SBuffer) Write(p []byte) (n int, err error) {
+// 	return 0, nil
+// }
 
 func main() {
 	logPath := "/Users/vitocutten/.local/share/nvim/scratchy.log"
